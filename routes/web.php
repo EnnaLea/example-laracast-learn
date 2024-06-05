@@ -2,30 +2,16 @@
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
-use  App\Models\Job;
+use App\Http\Controllers\JobController;
 
 
+Route::view('/', 'home');
 
+//Index
+Route::get('/jobs', [JobController::class, 'index']);
 
+Route::resource('jobs', JobController::class);
 
-Route::get('/', function () {
+//Contact
+Route::view('/contact', 'contact');
 
-    return view('home');
-});
-
-Route::get('/contact', function () {
-    return view('contact');
-});
-
-Route::get('/jobs', function ()  {
-    return view('jobs', [
-        'jobs' => Job::all()
-    ]);
-});
-
-Route::get('/jobs/{id}', function ($id) {
-
-       $job = Job::find($id);
-
-    return view('job', ['job' => $job ]);
-});
